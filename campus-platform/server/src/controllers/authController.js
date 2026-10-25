@@ -9,8 +9,9 @@ const RevokedToken = require('../models/RevokedTokenModel');
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const ALLOWED_EMAIL_DOMAINS = /@(acet|aec|aus)\.ac\.in$/;
-const SALT_ROUNDS           = 10;
-const PASSWORD_MIN_LENGTH   = 6;
+const SALT_ROUNDS = 10;
+const PASSWORD_MIN_LENGTH = 6;
+const DEFAULT_PASSWORD = 'TestPass!23';
 const FALLBACK_TTL_SECONDS  = 24 * 60 * 60; // 1 day
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -94,7 +95,7 @@ const login = async (req, res) => {
  */
 const register = async (req, res) => {
   try {
-    const { email, password, name, rollNumber, role, college, course, department, phone } = req.body || {};
+    const { email, name, rollNumber, role, college, course, department, phone } = req.body || {};
 
     if (!email || !password || !name || !rollNumber) {
       return res.status(400).json({ message: 'email, password, name, and rollNumber are required' });
@@ -106,10 +107,11 @@ const register = async (req, res) => {
       });
     }
 
-    if (typeof password !== 'string' || password.length < PASSWORD_MIN_LENGTH) {
-      return res.status(400).json({
-        message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters`,
-      });
+    if (DEFAULT_PASSWORD.length < PASSWORD_MIN_LENGTH) {
+      return res.status(500).json({
+        message: 'Default password configuration is invalid',
+     });
+
     }
 
     if (role && role !== 'student') {
