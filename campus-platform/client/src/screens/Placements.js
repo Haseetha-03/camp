@@ -320,7 +320,9 @@ const UploadModal = ({ onClose, onSubmitted }) => {
                     <Text style={[UM.dropItemTxt, company === cn && { color:C.primary, fontWeight:'700' }]}>{cn}</Text>
                     {company === cn && <Ionicons name="checkmark" size={14} color={C.primary} />}
                   </TouchableOpacity>
-           View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+
             <Text style={UM.label}>Interview Experience <Text style={UM.required}>*</Text></Text>
             <TouchableOpacity 
               onPress={summarizeExperience}
