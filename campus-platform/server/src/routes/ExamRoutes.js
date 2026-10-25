@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const OutcomerExam = require("../models/OutcomerExam");
+const OutcomerExam = require("../models/OutComerModel");
 
 
 
