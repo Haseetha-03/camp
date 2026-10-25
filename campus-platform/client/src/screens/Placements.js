@@ -320,9 +320,33 @@ const UploadModal = ({ onClose, onSubmitted }) => {
                     <Text style={[UM.dropItemTxt, company === cn && { color:C.primary, fontWeight:'700' }]}>{cn}</Text>
                     {company === cn && <Ionicons name="checkmark" size={14} color={C.primary} />}
                   </TouchableOpacity>
-          
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                ))}
+              </ScrollView>
+            </View>
+          )}
 
+          {/* Difficulty */}
+          <Text style={UM.label}>Difficulty <Text style={UM.required}>*</Text></Text>
+          <View style={UM.diffRow}>
+            {DIFFICULTY_OPTIONS.map(d => {
+              const colors = { Easy:['#D1FAE5','#059669'], Medium:['#FEF3C7','#D97706'], Hard:['#FEE2E2','#DC2626'] };
+              const [bg, fg] = colors[d];
+              const active = difficulty === d;
+              return (
+                <TouchableOpacity
+                  key={d}
+                  style={[UM.diffChip, active && { backgroundColor:bg, borderColor:fg }]}
+                  onPress={() => setDifficulty(d)}
+                  activeOpacity={0.8}
+                >
+                  <Text style={[UM.diffChipTxt, active && { color:fg }]}>{d}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
+          {/* Interview Experience (with Summarize) */}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
             <Text style={UM.label}>Interview Experience <Text style={UM.required}>*</Text></Text>
             <TouchableOpacity 
               onPress={summarizeExperience}
@@ -342,33 +366,7 @@ const UploadModal = ({ onClose, onSubmitted }) => {
             placeholder="Describe the rounds, questions asked, atmosphere..."
             placeholderTextColor={C.textLight}
             value={experience}
-            onChangeText={(text) => { setExperience(text); setSummarized(false); }ulty <Text style={UM.required}>*</Text></Text>
-          <View style={UM.diffRow}>
-            {DIFFICULTY_OPTIONS.map(d => {
-              const colors = { Easy:['#D1FAE5','#059669'], Medium:['#FEF3C7','#D97706'], Hard:['#FEE2E2','#DC2626'] };
-              const [bg, fg] = colors[d];
-              const active = difficulty === d;
-              return (
-                <TouchableOpacity
-                  key={d}
-                  style={[UM.diffChip, active && { backgroundColor:bg, borderColor:fg }]}
-                  onPress={() => setDifficulty(d)}
-                  activeOpacity={0.8}
-                >
-                  <Text style={[UM.diffChipTxt, active && { color:fg }]}>{d}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* Interview Experience */}
-          <Text style={UM.label}>Interview Experience <Text style={UM.required}>*</Text></Text>
-          <TextInput
-            style={[UM.input, UM.textarea]}
-            placeholder="Describe the rounds, questions asked, atmosphere..."
-            placeholderTextColor={C.textLight}
-            value={experience}
-            onChangeText={setExperience}
+            onChangeText={(text) => { setExperience(text); setSummarized(false); }}
             multiline
             textAlignVertical="top"
           />
