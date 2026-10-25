@@ -123,7 +123,7 @@ const register = async (req, res) => {
       return res.status(409).json({ message: 'A user with this email or roll number already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(DEFAULT_PASSWORD, SALT_ROUNDS);
 
     const user = await User.create({
       email,
